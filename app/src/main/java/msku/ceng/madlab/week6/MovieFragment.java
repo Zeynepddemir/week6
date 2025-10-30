@@ -13,12 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import msku.ceng.madlab.week6.placeholder.PlaceholderContent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+
 
 /**
  * A fragment representing a list of Items.
  */
 public class MovieFragment extends Fragment {
+    List<Movie> movies = new ArrayList<>();
     OnMovieSelected listener;
 
     // TODO: Customize parameter argument names
@@ -46,10 +51,24 @@ public class MovieFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+        movies.add(new Movie("The Shawshank Redemption","Frank Darabont",1994,
+                Arrays.asList(new String[]{"Tim Robbins", "Morgan Freeman", "Bob Gunton"}),
+                "Two imprisoned men bond over a number of years, " +
+                        "finding solace and eventual redemption through acts of common decency."));
+        movies.add(new Movie("The Godfather","Francis Ford Coppola",1972,
+                Arrays.asList(new String[]{"Marlon Brando", "Al Pacino", " James Caan"}),
+                "The aging patriarch of an organized crime dynasty transfers control of his "
+                        +
+                        "clandestine empire to his reluctant son."));
+        movies.add(new Movie("Pulp Fiction","Quentin Tarantino",1994,
+                Arrays.asList(new String[]{"John Travolta", "Uma Thurman", "Samuel L. Jackson"}),
+                        "The aging patriarch of an organized crime dynasty transfers control of " +
+                                "his clandestine empire to his reluctant son."));
+
+
     }
 
     @Override
@@ -66,7 +85,7 @@ public class MovieFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyMovieRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            recyclerView.setAdapter(new MyMovieRecyclerViewAdapter(movies, listener));
         }
         return view;
     }
